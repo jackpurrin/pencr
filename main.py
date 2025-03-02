@@ -2,7 +2,6 @@ from cryptography.fernet import Fernet
 from os import system, name
 
 def clear():
-
     # for windows
     if name == 'nt':
         _ = system('cls')
@@ -13,65 +12,71 @@ def clear():
 
 def write_key():
     clear()
-    keyName = input("What do you want to name the key? ")
+    key_name = input("What do you want to name the key? ")
+    
     key = Fernet.generate_key()
-    with open(keyName + ".key", "wb") as key_file:
+    with open(key_name + ".key", "wb") as key_file:
         key_file.write(key)
-    print("Done!")
-    menu()
 
 def load_key():
     clear()
-    keyName = input("What is the key's name? ")
-    return open(keyName + ".key", "rb").read()
-    print("Done!")
-    menu()
+    key_name = input("What is the key's name? ")
+    
+    print(open(key_name + ".key", "rb").read())
+    input("Press anything to continue...")
 
-def encrypt(filename, key):
+def encrypt():
     clear()
-    file = open(key, "r")
-    content = file.read()
-    key = content
-    file.close()
+    file_name = input("What file do you want to encrypt? ")
+    key_name = input("What is the name of the key to encrypt the file? ")
+    
+    with open(file_name, "rb") as input_file:
+        file_data = input_file.read()
+    with open(key_name, "r") as key_file:
+        key = key_file.read()
+        
     f = Fernet(key)
-    with open(filename, "rb") as file:
-        file_data = file.read()
     encrypted_data = f.encrypt(file_data)
-    with open(filename, "wb") as file:
-        file.write(encrypted_data)
-    print("Done!")
-    menu()
+    
+    with open(file_name, "wb") as output_file:
+        output_file.write(encrypted_data)
 
-def decrypt(filename, key):
+def decrypt():
     clear()
-    file = open(key, "r")
-    content = file.read()
-    key = content
-    file.close()
+    file_name = input("What file do you want to decrypt? ")
+    key_name = input("What is the key used to encrypt the file? ")
+    
+    with open(file_name, "rb") as input_file:
+        file_data = input_file.read()
+    with open(key_name, "r") as key_file:
+        key = key_file.read()
+        
     f = Fernet(key)
-    with open(filename, "rb") as file:
-        encrypted_data = file.read()
-    decrypted_data = f.decrypt(encrypted_data)
-    with open(filename, "wb") as file:
-        file.write(decrypted_data)
+    decrypted_data = f.decrypt(file_data)
+    
+    with open(file_name, "wb") as output_file:
+        output_file.write(decrypted_data)
 
+def main():
+    while True:
+        clear()
+        print("1). Generate a key") 
+        print("2). Read a key")
+        print("3). Encrypt a file")
+        print("4). Decrypt a file.")
+        print("5). Exit")
+        task = input("What do you want to do? ")
 
-def menu():
-    clear()
-    print("1). Generate a key") 
-    print("2). Read a key")
-    print("3). Encrypt a file")
-    print("4). Decrypt a file.")
-    print("5). Exit")
-    task = input("What do you want to do? ")
+        if task == "1" :
+            write_key()
+        elif task == "2" :
+            load_key()
+        elif task == "3" :
+            encrypt()
+        elif task == "4" :
+            decrypt()
+        else:
+            break
 
-    if task == "1" :
-        write_key()
-    if task == "2" :
-        print(load_key())
-    if task == "3" :
-        encrypt(input("What file do you want to encrypt? "), input("What is the name of the key to encrypt the file? "))
-    if task == "4" :
-        decrypt(input("What file do you want to decrypt? "), input("What is the key used to encrypt the file? "))
-
-menu()
+if __name__ == "__main__":
+    main()
