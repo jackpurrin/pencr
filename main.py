@@ -2,7 +2,6 @@ from cryptography.fernet import Fernet
 from os import system, name
 
 def clear():
-
     # for windows
     if name == 'nt':
         _ = system('cls')
@@ -14,6 +13,7 @@ def clear():
 def write_key():
     clear()
     keyName = input("What do you want to name the key? ")
+    
     key = Fernet.generate_key()
     with open(keyName + ".key", "wb") as key_file:
         key_file.write(key)
@@ -22,11 +22,15 @@ def write_key():
 def load_key():
     clear()
     keyName = input("What is the key's name? ")
+    
     print(open(keyName + ".key", "rb").read())
     input("Press anything to continue...")
 
-def encrypt(filename, key):
+def encrypt():
     clear()
+    filename = input("What file do you want to encrypt? ")
+    key = input("What is the name of the key to encrypt the file? ")
+    
     file = open(key, "r")
     content = file.read()
     key = content
@@ -41,6 +45,9 @@ def encrypt(filename, key):
 
 def decrypt(filename, key):
     clear()
+    filename = input("What file do you want to decrypt? ")
+    key = input("What is the key used to encrypt the file? ")
+    
     file = open(key, "r")
     content = file.read()
     key = content
@@ -68,9 +75,9 @@ def main():
         elif task == "2" :
             load_key()
         elif task == "3" :
-            encrypt(input("What file do you want to encrypt? "), input("What is the name of the key to encrypt the file? "))
+            encrypt()
         elif task == "4" :
-            decrypt(input("What file do you want to decrypt? "), input("What is the key used to encrypt the file? "))
+            decrypt()
         else:
             break
 
