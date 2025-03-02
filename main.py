@@ -24,8 +24,6 @@ def load_key():
     clear()
     keyName = input("What is the key's name? ")
     return open(keyName + ".key", "rb").read()
-    print("Done!")
-    menu()
 
 def encrypt(filename, key):
     clear()
