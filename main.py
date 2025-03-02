@@ -28,35 +28,34 @@ def load_key():
 def encrypt():
     clear()
     file_name = input("What file do you want to encrypt? ")
-    key = input("What is the name of the key to encrypt the file? ")
+    key_name = input("What is the name of the key to encrypt the file? ")
     
-    file = open(key, "r")
-    content = file.read()
-    key = content
-    file.close()
+    with open(file_name, "rb") as input_file:
+        file_data = input_file.read()
+    with open(key_name, "r") as key_file:
+        key = key_file.read()
+        
     f = Fernet(key)
-    with open(file_name, "rb") as file:
-        file_data = file.read()
     encrypted_data = f.encrypt(file_data)
-    with open(file_name, "wb") as file:
-        file.write(encrypted_data)
+    
+    with open(file_name, "wb") as output_file:
+        output_file.write(encrypted_data)
 
 def decrypt():
     clear()
     file_name = input("What file do you want to decrypt? ")
-    key = input("What is the key used to encrypt the file? ")
+    key_name = input("What is the key used to encrypt the file? ")
     
-    file = open(key, "r")
-    content = file.read()
-    key = content
-    file.close()
+    with open(file_name, "rb") as input_file:
+        file_data = input_file.read()
+    with open(key_name, "r") as key_file:
+        key = key_file.read()
+        
     f = Fernet(key)
-    with open(file_name, "rb") as file:
-        encrypted_data = file.read()
-    decrypted_data = f.decrypt(encrypted_data)
-    with open(file_name, "wb") as file:
-        file.write(decrypted_data)
-
+    decrypted_data = f.decrypt(file_data)
+    
+    with open(file_name, "wb") as output_file:
+        output_file.write(decrypted_data)
 
 def main():
     while True:
