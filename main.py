@@ -65,11 +65,11 @@ def menu():
 
     if task == "1" :
         write_key()
-    if task == "2" :
+    elif task == "2" :
         print(load_key())
-    if task == "3" :
+    elif task == "3" :
         encrypt(input("What file do you want to encrypt? "), input("What is the name of the key to encrypt the file? "))
-    if task == "4" :
+    elif task == "4" :
         decrypt(input("What file do you want to decrypt? "), input("What is the key used to encrypt the file? "))
 
 menu()
