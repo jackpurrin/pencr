@@ -12,23 +12,23 @@ def clear():
 
 def write_key():
     clear()
-    keyName = input("What do you want to name the key? ")
+    key_name = input("What do you want to name the key? ")
     
     key = Fernet.generate_key()
-    with open(keyName + ".key", "wb") as key_file:
+    with open(key_name + ".key", "wb") as key_file:
         key_file.write(key)
     print("Done!")
 
 def load_key():
     clear()
-    keyName = input("What is the key's name? ")
+    key_name = input("What is the key's name? ")
     
-    print(open(keyName + ".key", "rb").read())
+    print(open(key_name + ".key", "rb").read())
     input("Press anything to continue...")
 
 def encrypt():
     clear()
-    filename = input("What file do you want to encrypt? ")
+    file_name = input("What file do you want to encrypt? ")
     key = input("What is the name of the key to encrypt the file? ")
     
     file = open(key, "r")
@@ -36,16 +36,16 @@ def encrypt():
     key = content
     file.close()
     f = Fernet(key)
-    with open(filename, "rb") as file:
+    with open(file_name, "rb") as file:
         file_data = file.read()
     encrypted_data = f.encrypt(file_data)
-    with open(filename, "wb") as file:
+    with open(file_name, "wb") as file:
         file.write(encrypted_data)
     print("Done!")
 
-def decrypt(filename, key):
+def decrypt():
     clear()
-    filename = input("What file do you want to decrypt? ")
+    file_name = input("What file do you want to decrypt? ")
     key = input("What is the key used to encrypt the file? ")
     
     file = open(key, "r")
@@ -53,10 +53,10 @@ def decrypt(filename, key):
     key = content
     file.close()
     f = Fernet(key)
-    with open(filename, "rb") as file:
+    with open(file_name, "rb") as file:
         encrypted_data = file.read()
     decrypted_data = f.decrypt(encrypted_data)
-    with open(filename, "wb") as file:
+    with open(file_name, "wb") as file:
         file.write(decrypted_data)
 
 
