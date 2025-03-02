@@ -1,5 +1,10 @@
 from cryptography.fernet import Fernet
 from os import system, name
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QPushButton, QLineEdit
+from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import pyqtSlot
+import sys
+
 
 def clear():
 
@@ -74,4 +79,54 @@ def menu():
     if task == "4" :
         decrypt(input("What file do you want to decrypt? "), input("What is the key used to encrypt the file? "))
 
-menu()
+def window():
+    app = QApplication(sys.argv)
+    widget = QWidget()
+
+    button1 = QPushButton(widget)
+    button1.setText("Create Key")
+    button1.move(0,0)
+    button1.clicked.connect(button1_clicked)
+
+    button2 = QPushButton(widget)
+    button2.setText("Load Key")
+    button2.move(0,32)
+    button2.clicked.connect(button2_clicked)
+
+    button3 = QPushButton(widget)
+    button3.setText("Encrypt File")
+    button3.move(0,64)
+    button3.clicked.connect(button3_clicked)
+
+    button4 = QPushButton(widget)
+    button4.setText("Decrypt File")
+    button4.move(0,96)
+    button4.clicked.connect(button4_clicked)
+
+    button5 = QPushButton(widget)
+    button5.setText("Exit")
+    button5.move(0,128)
+    button5.clicked.connect(button5_clicked)
+
+    widget.setGeometry(50,50,320,200)
+    widget.setWindowTitle("Python Password Manager")
+    widget.show()
+    sys.exit(app.exec_())
+
+def button1_clicked():
+    write_key()
+
+def button2_clicked():
+    load_key()
+
+def button3_clicked():
+    encrypt(input("What file do you want to encrypt? "), input("What is the name of the key to encrypt the file? "))
+
+def button4_clicked():
+    decrypt(input("What file do you want to decrypt? "), input("What is the key used to encrypt the file? "))
+
+def button5_clicked():
+    exit()
+
+if __name__ == '__main__':
+   window()
