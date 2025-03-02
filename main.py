@@ -18,7 +18,6 @@ def write_key():
     with open(keyName + ".key", "wb") as key_file:
         key_file.write(key)
     print("Done!")
-    menu()
 
 def load_key():
     clear()
@@ -39,7 +38,6 @@ def encrypt(filename, key):
     with open(filename, "wb") as file:
         file.write(encrypted_data)
     print("Done!")
-    menu()
 
 def decrypt(filename, key):
     clear()
@@ -55,22 +53,26 @@ def decrypt(filename, key):
         file.write(decrypted_data)
 
 
-def menu():
-    clear()
-    print("1). Generate a key") 
-    print("2). Read a key")
-    print("3). Encrypt a file")
-    print("4). Decrypt a file.")
-    print("5). Exit")
-    task = input("What do you want to do? ")
+def main():
+    while True:
+        clear()
+        print("1). Generate a key") 
+        print("2). Read a key")
+        print("3). Encrypt a file")
+        print("4). Decrypt a file.")
+        print("5). Exit")
+        task = input("What do you want to do? ")
 
-    if task == "1" :
-        write_key()
-    elif task == "2" :
-        load_key()
-    elif task == "3" :
-        encrypt(input("What file do you want to encrypt? "), input("What is the name of the key to encrypt the file? "))
-    elif task == "4" :
-        decrypt(input("What file do you want to decrypt? "), input("What is the key used to encrypt the file? "))
+        if task == "1" :
+            write_key()
+        elif task == "2" :
+            load_key()
+        elif task == "3" :
+            encrypt(input("What file do you want to encrypt? "), input("What is the name of the key to encrypt the file? "))
+        elif task == "4" :
+            decrypt(input("What file do you want to decrypt? "), input("What is the key used to encrypt the file? "))
+        else:
+            break
 
-menu()
+if __name__ == "__main__":
+    main()
