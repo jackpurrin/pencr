@@ -23,7 +23,8 @@ def write_key():
 def load_key():
     clear()
     keyName = input("What is the key's name? ")
-    return open(keyName + ".key", "rb").read()
+    print(open(keyName + ".key", "rb").read())
+    input("Press anything to continue...")
 
 def encrypt(filename, key):
     clear()
@@ -66,7 +67,7 @@ def menu():
     if task == "1" :
         write_key()
     elif task == "2" :
-        print(load_key())
+        load_key()
     elif task == "3" :
         encrypt(input("What file do you want to encrypt? "), input("What is the name of the key to encrypt the file? "))
     elif task == "4" :
