@@ -17,7 +17,6 @@ def write_key():
     key = Fernet.generate_key()
     with open(key_name + ".key", "wb") as key_file:
         key_file.write(key)
-    print("Done!")
 
 def load_key():
     clear()
@@ -41,7 +40,6 @@ def encrypt():
     encrypted_data = f.encrypt(file_data)
     with open(file_name, "wb") as file:
         file.write(encrypted_data)
-    print("Done!")
 
 def decrypt():
     clear()
